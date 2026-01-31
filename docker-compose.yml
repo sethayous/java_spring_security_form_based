@@ -1,0 +1,35 @@
+services:
+  postgres:                                # "postgres" is my service name. It is better than using container-name.
+    image: postgres:latest                 # default database is "postgres".
+    restart: unless-stopped
+    environment:
+      POSTGRES_USER: admin@rac.gov.kh      # If no POSTGRES_DB, admin@rac.gov.kh is username and also automatically for a new DB.
+      POSTGRES_PASSWORD: admin@rac.gov.kh
+      PGDATA: /data/postgres               # Specifies the directory within the container where PostgreSQL data files will be stored.
+    volumes:
+      - db:/var/lib/postgresql/            # Mounts db to the default directory inside the container.
+    ports:
+      - "5432:5432"                        # host:container, # Map host port 5432 to container port 5432
+    networks:
+      - db                                 # both pgAdmin and Postgres are part of the same Docker Compose network.
+
+  pgadmin:
+    image: dpage/pgadmin4:latest          # web GUI management tool for PostgreSQL
+    restart: unless-stopped
+    environment:
+      PGADMIN_DEFAULT_EMAIL: admin@rac.gov.kh
+      PGADMIN_DEFAULT_PASSWORD: admin@rac.gov.kh
+    ports:
+      - "8081:80"                         # host:container, Note: 8081:8081 is not work
+    depends_on:
+      - postgres                          # Here, "postgres" is service name for a PostgreSQL database container.
+    volumes:
+      - db:/var/lib/pgadmin/              # Map db to default data directory of Pgadmin in Docker container
+    networks:
+      - db
+
+networks:
+  db:                                     # define network name
+    driver: bridge
+volumes:
+  db:
