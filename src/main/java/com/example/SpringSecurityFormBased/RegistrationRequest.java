@@ -8,6 +8,9 @@ public class RegistrationRequest {
     private String email;
     private String password;
 
+    public RegistrationRequest() {
+    }
+
     public RegistrationRequest(String firstName, String lastName, String email, String password) {
         this.firstName = firstName;
         this.lastName = lastName;

@@ -11,7 +11,7 @@ public class RegistrationController {
     }
 
     @PostMapping()
-    public String addRegister(RegistrationRequest registrationRequest){
+    public String addRegister(@RequestBody RegistrationRequest registrationRequest){
         return registrationService.EmailRegister(registrationRequest);
     }
 
