@@ -19,4 +19,9 @@ public class RegistrationController {
     public String findUserByEmail(@PathVariable("useremail") String email){
         return "found";
     }
+
+    @GetMapping("/confirm")
+    public String confirm(@RequestParam("token") String token){
+        return registrationService.confirmToken(token);
+    }
 }

@@ -20,8 +20,8 @@ public class Users implements Serializable {
     @Enumerated(EnumType.STRING)
     private UsersAndRole usersAndRole;
 
-    private boolean isLocked = true;
-    private boolean isEnabled = true;
+    private boolean isLocked = false;
+    private boolean isEnabled = false;
 
     public Users() {
     }
